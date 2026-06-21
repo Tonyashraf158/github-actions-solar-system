@@ -1,3 +1,14 @@
+  name: Solar System Workflow
+  on:
+    workflow_dispatch: null
+    push:
+      branches:
+        - main
+        - feature/*
+  env:
+    MONGO_URI: mongodb+srv://supercluster.d83jj.mongodb.net/superData
+    MONGO_USERNAME: superuser
+    MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
   jobs:
     unit-testing:
       name: Unit Testing
@@ -14,7 +25,7 @@
         - name: Unit Testing
           run: npm test
         - name: Archive Test Result
-          if: always()      #added
+          if: always()
           uses: actions/upload-artifact@v4
           with:
             name: Mocha-Test-Result

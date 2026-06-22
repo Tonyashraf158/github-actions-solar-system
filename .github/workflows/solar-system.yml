@@ -86,11 +86,24 @@
               kubectl -n kube-system get pod
               set +e
               REPO_OWNER_LC="${GITHUB_REPOSITORY_OWNER,,}"
-              kubectl run solar --image ghcr.io/${REPO_OWNER_LC}/solar-system:${{ github.sha }} \
-                --env MONGO_URI=${{ env.MONGO_URI}} \
-                --env MONGO_USERNAME=${{ env.MONGO_USERNAME}} \
-                --env MONGO_PASSWORD=${{ env.MONGO_PASSWORD}}
+              kubectl run solar \
+              --image ghcr.io/${REPO_OWNER_LC}/solar-system:${{ github.sha }} \
+              --env MONGO_URI=${{ env.MONGO_URI }} \
+              --env MONGO_USERNAME=${{ env.MONGO_USERNAME }} \
+              --env MONGO_PASSWORD=${{ env.MONGO_PASSWORD }}
+
+            kubectl wait --for=condition=Ready pod/solar --timeout=120s
+            kubectl logs solar
               set -e
-              echo "kubectl returned $?"
+              RC=$?
+              echo "kubectl returned $RC"
               kubectl -n default get pod
               sleep 20
+              kubectl get pods
+              kubectl wait \
+                --for=condition=Ready \
+                pod/solar \
+                --timeout=120s
+              kubectl get pods
+              kubectl describe pod solar
+              kubectl logs solar

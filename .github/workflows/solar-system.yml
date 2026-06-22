@@ -67,4 +67,3 @@
         context: .
         push: true
         tags: 'ghcr.io/tonyashraf158/solar-system:${{ github.sha }}'
-

@@ -73,7 +73,6 @@
         push: true
         tags: 'ghcr.io/tonyashraf158/solar-system:${{ github.sha }}'
     dev-deploy:
-      id: dev-deploy
       needs: docker
       environment: 
         name: development

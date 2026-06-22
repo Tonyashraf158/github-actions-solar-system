@@ -91,9 +91,8 @@
               --env MONGO_URI=${{ env.MONGO_URI }} \
               --env MONGO_USERNAME=${{ env.MONGO_USERNAME }} \
               --env MONGO_PASSWORD=${{ env.MONGO_PASSWORD }}
-
-            kubectl wait --for=condition=Ready pod/solar --timeout=120s
-            kubectl logs solar
+              kubectl wait --for=condition=Ready pod/solar --timeout=120s
+              kubectl logs solar
               set -e
               RC=$?
               echo "kubectl returned $RC"

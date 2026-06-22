@@ -82,7 +82,7 @@
           - name: install cluster
             uses: helm/kind-action@v1
           - run: |
-              sleep 60
+              sleep 80
               kubectl -n kube-system get pod
               set +e
               REPO_OWNER_LC="${GITHUB_REPOSITORY_OWNER,,}"
@@ -93,4 +93,4 @@
               set -e
               echo "kubectl returned $?"
               kubectl -n default get pod
-              sleep 10
+              sleep 20
